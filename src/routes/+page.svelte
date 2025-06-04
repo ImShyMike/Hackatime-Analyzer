@@ -6,21 +6,6 @@
 	let fetchedStats = $state<UserStats>({});
 	let fetchedSpans = $state<Span[]>([]);
 
-	interface UserStats {
-		username?: string;
-		user_id?: string;
-		total_seconds?: number;
-		human_readable_total?: string;
-		daily_average?: number;
-		human_readable_daily_average?: string;
-	}
-
-	interface Span {
-		start: Date;
-		end: Date;
-		duration: number;
-	}
-
 	async function fetchUrl(url: string) {
 		const response = await fetch(`https://corsproxy.io/?${url}`);
 
@@ -61,8 +46,8 @@
 		}
 
 		return data.spans.map((span: any) => ({
-			start: new Date(span.start),
-			end: new Date(span.end),
+			start_time: new Date(span.start_time * 1000),
+			end_time: new Date(span.end_time * 1000),
 			duration: span.duration
 		}));
 	}
