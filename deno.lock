@@ -26,6 +26,7 @@
     "npm:prettier-plugin-svelte@^3.3.3": "3.4.0_prettier@3.5.3_svelte@5.33.14__acorn@8.14.1",
     "npm:prettier-plugin-tailwindcss@~0.6.11": "0.6.12_prettier@3.5.3_prettier-plugin-svelte@3.4.0__prettier@3.5.3__svelte@5.33.14___acorn@8.14.1_svelte@5.33.14__acorn@8.14.1",
     "npm:prettier@^3.4.2": "3.5.3",
+    "npm:svelte-adapter-github@^1.0.0-next.0": "1.0.0-next.0",
     "npm:svelte-check@4": "4.2.1_svelte@5.33.14__acorn@8.14.1_typescript@5.8.3",
     "npm:svelte-ux@^1.0.6": "1.0.6_svelte@5.33.14__acorn@8.14.1_postcss@8.5.4",
     "npm:svelte@5.33.14": "5.33.14_acorn@8.14.1",
@@ -2419,6 +2420,10 @@
       ],
       "bin": true
     },
+    "svelte-adapter-github@1.0.0-next.0": {
+      "integrity": "sha512-a2PIoA2UuMJYnhUnh4JkMnC8GgsNgAJzT9Z6UJGG+l4861nlZ6tgU7oF6GHcC19pbA88tM+kxJ3maKgOO0onMg==",
+      "deprecated": true
+    },
     "svelte-check@4.2.1_svelte@5.33.14__acorn@8.14.1_typescript@5.8.3": {
       "integrity": "sha512-e49SU1RStvQhoipkQ/aonDhHnG3qxHSBtNfBRb9pxVXoa+N7qybAo32KgA9wEb2PCYFNaDg7bZCdhLD1vHpdYA==",
       "dependencies": [
@@ -2743,6 +2748,8 @@
         "npm:@eslint/compat@^1.2.5",
         "npm:@eslint/js@^9.18.0",
         "npm:@sveltejs/adapter-auto@6",
+        "npm:@sveltejs/adapter-cloudflare@^7.0.3",
+        "npm:@sveltejs/adapter-static@^3.0.8",
         "npm:@sveltejs/kit@2.21.2",
         "npm:@sveltejs/vite-plugin-svelte@5.1.0",
         "npm:@tailwindcss/forms@~0.5.9",
@@ -2764,6 +2771,7 @@
         "npm:prettier-plugin-svelte@^3.3.3",
         "npm:prettier-plugin-tailwindcss@~0.6.11",
         "npm:prettier@^3.4.2",
+        "npm:svelte-adapter-github@^1.0.0-next.0",
         "npm:svelte-check@4",
         "npm:svelte-ux@^1.0.6",
         "npm:svelte@5.33.14",
