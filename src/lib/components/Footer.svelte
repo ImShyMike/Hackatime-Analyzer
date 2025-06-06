@@ -9,7 +9,7 @@
 </script>
 
 <footer
-	class="text-ctp-overlay0 mt-auto flex flex-row items-center justify-center border-t px-5 py-2 text-center text-sm"
+	class="text-ctp-overlay0 mt-8 flex flex-row items-center justify-center border-t px-5 py-2 text-center text-sm"
 >
 	<p class="mr-3">
 		<a href="https://github.com/ImShyMike" target="_blank" rel="noopener noreferrer">shymike</a>

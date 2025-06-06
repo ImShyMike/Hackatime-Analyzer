@@ -83,7 +83,7 @@
 	}
 </script>
 
-<main class="bg-ctp-base flex min-h-screen flex-col items-center justify-center pt-10">
+<main class="flex flex-col items-center justify-center pt-10">
 	<h1 class="text-ctp-mauve mb-4 pt-6 text-5xl font-bold">Hackatime Analyzer</h1>
 	<p class="text-ctp-text mt-2">Easily analyze hackatime data in your browser!</p>
 	<form onsubmit={loadUserData} class="flex flex-row items-center">
@@ -128,5 +128,4 @@
 			</Toast>
 		</div>
 	{/if}
-	<Footer />
 </main>
