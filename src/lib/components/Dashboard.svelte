@@ -90,7 +90,7 @@
 		const hours = Math.floor(seconds / 3600);
 		const minutes = Math.floor((seconds % 3600) / 60);
 		const secondsRemainder = Math.floor(seconds % 60);
-		return `${hours > 0 ? hours + "h " : ""}${minutes > 0 ? minutes + "m " : ""}${secondsRemainder}s`;
+		return `${hours > 0 ? hours + 'h ' : ''}${minutes > 0 ? minutes + 'm ' : ''}${secondsRemainder}s`;
 	}
 
 	function groupSpansByDay(spans: Span[]): Day[] {
@@ -124,11 +124,11 @@
 			if (days[dateKey]) {
 				days[dateKey].sessions.push(span);
 			} else {
-                days[dateKey] = {
-                    date: new Date(span.start_time),
-                    sessions: [span]
-                };
-            }
+				days[dateKey] = {
+					date: new Date(span.start_time),
+					sessions: [span]
+				};
+			}
 		});
 
 		// newest to oldest
@@ -359,7 +359,7 @@
 				prevSpansLength = spans.length;
 				spanDataLoaded = false;
 			}
-			
+
 			if (!spanDataLoaded) {
 				spanDataLoaded = true;
 				calculateData(filterMode);
@@ -380,7 +380,9 @@
 
 <div class="bg-ctp-surface0 mt-4 w-[75%] rounded p-4">
 	<div class="flex justify-between">
-		<h3 class="text-ctp-lavender pb-2 text-2xl font-bold">{stats.username || ''} - ID {stats.user_id || ''}</h3>
+		<h3 class="text-ctp-lavender pb-2 text-2xl font-bold">
+			{stats.username || ''} - ID {stats.user_id || ''}
+		</h3>
 		<div
 			class="text-ctp-blue-500 dark:text-ctp-blue-500 flex items-center px-2.5 py-0.5 text-center text-base font-semibold"
 		>
