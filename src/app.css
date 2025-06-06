@@ -1,7 +1,5 @@
 @import 'tailwindcss';
 
-@source '../../node_modules/layerchart/dist';
-
 @import '@catppuccin/tailwindcss/mocha.css';
 
 @tailwind base;
