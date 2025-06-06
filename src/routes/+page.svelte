@@ -1,24 +1,20 @@
 <script lang="ts">
 	import Dashboard from '../lib/components/Dashboard.svelte';
-	import { Toast } from 'flowbite-svelte';
+	import { Toast, Button } from 'flowbite-svelte';
 
 	let userId = $state('');
+	let lastUserId = $state<string | null>(null);
 	let errorMessage = $state('');
 	let fetching = $state(false);
 	let fetchedStats = $state<UserStats>({});
 	let fetchedSpans = $state<Span[]>([]);
 
+	const hackatimeIdRegex = /\b[1-9]\d*\b/;
+	const slackIdRegex = /\b[UW][A-Z0-9]{8,}\b/;
+	const hasLetters = (str: string): boolean => /[a-zA-Z]/.test(str);
+
 	async function fetchUrl(url: string) {
 		const response = await fetch(`https://corsproxy.io/?${url}`);
-
-		if (!response.ok) {
-			console.error('Failed to fetch data:', response.statusText);
-			errorMessage = `User does not exist!`;
-			setTimeout(() => {
-				errorMessage = '';
-			}, 3000);
-			return;
-		}
 
 		const data = await response.json();
 		return data;
@@ -28,8 +24,6 @@
 		const data = await fetchUrl(
 			`https://hackatime.hackclub.com/api/v1/users/${userId}/stats?features=a`
 		);
-
-		console.log('Fetched stats data:', data);
 
 		if (!data) return;
 
@@ -45,8 +39,6 @@
 		const data = await fetchUrl(
 			`https://hackatime.hackclub.com/api/v1/users/${userId}/heartbeats/spans`
 		);
-
-		console.log('Fetched spans data:', data);
 
 		if (!data) return;
 
@@ -68,6 +60,21 @@
 			return;
 		}
 
+		if (userId === lastUserId) {
+			console.log('Data already fetched for this user.');
+			return;
+		}
+
+		lastUserId = userId;
+
+		if (!hackatimeIdRegex.test(userId) && !slackIdRegex.test(userId)) {
+			errorMessage = `Invalid ${hasLetters(userId) ? 'Hackatime' : 'Slack'} account ID!`;
+			setTimeout(() => {
+				errorMessage = '';
+			}, 3000);
+			return;
+		}
+
 		fetching = true;
 		fetchedStats = await loadStatsData();
 		fetchedSpans = await loadSpansData();
@@ -78,18 +85,30 @@
 <main class="bg-ctp-base flex flex-col items-center justify-center pt-10">
 	<h1 class="text-ctp-mauve mb-4 text-5xl font-bold">Hackatime Analyzer</h1>
 	<p class="text-ctp-text mt-2">Easily analyze hackatime data in your browser!</p>
-	<input
-		type="text"
-		placeholder="Hackatime/Slack user ID"
-		bind:value={userId}
-		class="border-ctp-mauve bg-ctp-base text-ctp-text mt-4 rounded border p-2"
-	/>
-	<button
-		disabled={fetching}
-		onclick={() => loadUserData()}
-		class="bg-ctp-mauve text-ctp-base hover:bg-ctp-mauve/80 mt-4 cursor-pointer rounded px-4 py-2"
-		>Analyze</button
-	>
+	<form onsubmit={loadUserData} class="flex flex-row items-center">
+		<input
+			type="text"
+			placeholder="Hackatime/Slack user ID"
+			bind:value={userId}
+			class="border-ctp-mauve bg-ctp-base text-ctp-text mt-4 rounded border p-2 mr-3"
+		/>
+		<button
+			disabled={fetching}
+			class="bg-ctp-mauve text-ctp-base hover:bg-ctp-mauve/80 mt-4 cursor-pointer rounded px-5 py-2"
+		>
+			<div class="flex items-center justify-center">
+				{#if fetching}
+					<svg class="animate-spin h-5 w-5 mr-3 text-white" viewBox="0 0 24 24">
+						<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+						<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+					</svg>
+					<span>Loading...</span>
+				{:else}
+					<span>Analyze</span>
+				{/if}
+			</div>
+		</button>
+	</form>
 	{#if Object.keys(fetchedStats).length > 0}
 		<Dashboard stats={fetchedStats} spans={fetchedSpans} />
 	{/if}

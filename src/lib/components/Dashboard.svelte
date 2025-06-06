@@ -90,7 +90,7 @@
 		const hours = Math.floor(seconds / 3600);
 		const minutes = Math.floor((seconds % 3600) / 60);
 		const secondsRemainder = Math.floor(seconds % 60);
-		return `${hours}h ${minutes}m ${secondsRemainder}s`;
+		return `${hours > 0 ? hours + "h " : ""}${minutes > 0 ? minutes + "m " : ""}${secondsRemainder}s`;
 	}
 
 	function groupSpansByDay(spans: Span[]): Day[] {
@@ -137,8 +137,6 @@
 
 	function groupSpansByHour(spans: Span[]): Hour[] {
 		const hours: { [key: string]: Hour } = {};
-
-		if (spans.length === 0) return [];
 
 		let referenceDate: Date;
 		if (spans.length > 0) {
@@ -219,8 +217,8 @@
 		}
 	}
 
-	function groupSpans(spans: Span[], mode: string): Day[] | Hour[] {
-		if (mode === 'Today' || mode === 'Yesterday') {
+	function groupSpans(spans: Span[]): Day[] | Hour[] {
+		if (isHourFilter()) {
 			return groupSpansByHour(spans);
 		} else {
 			return groupSpansByDay(spans);
@@ -253,9 +251,7 @@
 		return `${hours}:${minutes}`;
 	}
 
-	function calculateData(currentFilter: string) {
-		console.log('Calculating data with filter mode:', currentFilter);
-
+	export function calculateData(currentFilter: string) {
 		if (!spans || spans.length === 0) {
 			console.log('No spans data available');
 			return;
@@ -264,7 +260,7 @@
 		isDataLoaded = true;
 
 		const filteredSpans = filterSpansByMode(currentFilter, spans);
-		const filteredGroupedDays = groupSpans(filteredSpans, currentFilter);
+		const filteredGroupedDays = groupSpans(filteredSpans);
 		const sortedDays = [...filteredGroupedDays].reverse();
 
 		const newSeriesData = [];
@@ -356,12 +352,19 @@
 	}
 
 	let spanDataLoaded = false;
+	let prevSpansLength = 0;
 
 	$effect(() => {
-		if (spans && spans.length > 0 && !spanDataLoaded) {
-			console.log('Initial data load - spans length:', spans.length);
-			spanDataLoaded = true;
-			calculateData(filterMode);
+		if (spans && spans.length > 0) {
+			if (spans.length !== prevSpansLength) {
+				prevSpansLength = spans.length;
+				spanDataLoaded = false;
+			}
+			
+			if (!spanDataLoaded) {
+				spanDataLoaded = true;
+				calculateData(filterMode);
+			}
 		}
 	});
 
@@ -370,15 +373,19 @@
 		isOpen = false;
 		calculateData(newFilter);
 	}
+
+	function isHourFilter(): boolean {
+		return filterMode === 'Today' || filterMode === 'Yesterday';
+	}
 </script>
 
 <div class="bg-ctp-surface0 mt-4 w-[75%] rounded p-4">
 	<div class="flex justify-between">
-		<h3 class="text-ctp-lavender pb-2 text-2xl font-bold">Hackatime Stats</h3>
+		<h3 class="text-ctp-lavender pb-2 text-2xl font-bold">{stats.username || ''} - ID {stats.user_id || ''}</h3>
 		<div
 			class="text-ctp-blue-500 dark:text-ctp-blue-500 flex items-center px-2.5 py-0.5 text-center text-base font-semibold"
 		>
-			{stats.username || ''} - ID {stats.user_id || ''}
+			{isHourFilter() ? 'Hourly' : 'Daily'} Data
 		</div>
 	</div>
 	<div class="flex justify-between">
@@ -393,7 +400,7 @@
 		<Chart {options} />
 	{:else}
 		<div class="flex h-[400px] items-center justify-center">
-			<p class="text-gray-500">Loading chart data...</p>
+			<p class="ml-2 text-gray-500">Loading chart data...</p>
 		</div>
 	{/if}
 	<div
