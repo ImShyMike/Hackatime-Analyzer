@@ -6,10 +6,9 @@
 	let seriesData = $state<number[]>([]);
 	let categories = $state<string[]>([]);
 	let isDataLoaded = $state(false);
-	let options = $state({
+	let options = $state<ApexOptions>({
 		chart: {
 			height: '400px',
-			maxWidth: '100%',
 			type: 'area',
 			fontFamily: 'Inter, sans-serif',
 			dropShadow: {
@@ -25,7 +24,7 @@
 				show: true
 			},
 			y: {
-				formatter: (value) => formatDuration(value || 0)
+				formatter: (value: number) => formatDuration(value || 0)
 			},
 			style: {
 				fontSize: '12px',
@@ -50,12 +49,12 @@
 		series: [
 			{
 				name: 'Time Spent',
-				data: [],
+				data: [] as number[],
 				color: '#a6e3a1'
 			}
 		],
 		xaxis: {
-			categories: [],
+			categories: [] as string[],
 			labels: {
 				show: true,
 				style: {
@@ -76,6 +75,7 @@
 
 	import { Chart, A, Button, Dropdown, DropdownItem } from 'flowbite-svelte';
 	import { ChevronRightOutline, ChevronDownOutline } from 'flowbite-svelte-icons';
+	import { type ApexOptions } from 'apexcharts';
 
 	const filterOptions = [
 		'Yesterday',
@@ -263,8 +263,8 @@
 		const filteredGroupedDays = groupSpans(filteredSpans);
 		const sortedDays = [...filteredGroupedDays].reverse();
 
-		const newSeriesData = [];
-		const newCategories = [];
+		const newSeriesData: number[] = [];
+		const newCategories: string[] = [];
 
 		sortedDays.forEach((day) => {
 			const totalSeconds = day.sessions.reduce((total, span) => {
@@ -285,7 +285,6 @@
 		options = {
 			chart: {
 				height: '400px',
-				maxWidth: '100%',
 				type: 'area',
 				fontFamily: 'Inter, sans-serif',
 				dropShadow: {
