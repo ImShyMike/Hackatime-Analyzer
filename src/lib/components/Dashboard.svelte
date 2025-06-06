@@ -121,7 +121,14 @@
 
 		spans.forEach((span) => {
 			const dateKey = span.start_time.toISOString().split('T')[0];
-			days[dateKey].sessions.push(span);
+			if (days[dateKey]) {
+				days[dateKey].sessions.push(span);
+			} else {
+                days[dateKey] = {
+                    date: new Date(span.start_time),
+                    sessions: [span]
+                };
+            }
 		});
 
 		// newest to oldest
