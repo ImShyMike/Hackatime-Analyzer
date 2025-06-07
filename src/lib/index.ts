@@ -1,1 +1,1 @@
-export const gitRepoUrl = 'https://github.com/ImShyMike/Hackatime-Analyzer';
+export const gitRepoUrl = "https://github.com/ImShyMike/Hackatime-Analyzer";
