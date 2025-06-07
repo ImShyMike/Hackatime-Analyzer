@@ -390,11 +390,11 @@
     </div>
   </div>
   <div class="flex justify-between">
-    <div>
+    <div class="flex flex-col items-start">
       <h5 class="text-3xl leading-none font-bold text-gray-900 dark:text-white">
         {formatDuration(seriesData.reduce((sum, current) => sum + current, 0)) || ""}
       </h5>
-      <p class="text-base font-normal text-gray-500 dark:text-gray-400">{filterMode}</p>
+      <p class="text-base font-normal text-gray-500 dark:text-gray-400 pl-0.5">{filterMode}</p>
     </div>
   </div>
   {#if isDataLoaded && seriesData.length > 0}
