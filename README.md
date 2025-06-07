@@ -1,38 +1,62 @@
-# sv
+# Hackatime Analyzer
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A simple web application for visualizing and analyzing your coding activity data from [Hackatime](https://hackatime.hackclub.com/), Hack Club's WakaTime like API.
 
-## Creating a project
+## Features
 
-If you're seeing this, you've probably already done this step. Congrats!
+- **Activity Dashboard**: View your coding activity over time with interactive charts
+- **Time Statistics**: Track your total coding time and daily averages
+- **Time Period Filtering**: Analyze your data across different time periods
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher recommended)
+- npm, pnpm, or yarn
+
+### Installation
+
+Clone the repository:
 
 ```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
+git clone https://github.com/ImShyMike/Hackatime-Analyzer.git
+cd Hackatime-Analyzer
 ```
 
-## Developing
+Install dependencies:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+```bash
+npm install
+```
+
+### Development
+
+Start the development server:
 
 ```bash
 npm run dev
 
-# or start the server and open the app in a new browser tab
+# or open it in your browser automatically
 npm run dev -- --open
 ```
 
-## Building
+### Building for Production
 
-To create a production version of your app:
+Create a production build:
 
 ```bash
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+Preview the production build:
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+```bash
+npm run preview
+```
+
+## How to Use
+
+1. Enter your Hackatime/Slack User ID in the input field
+2. View your coding statistics in the dashboard
+3. Use the time period filters to analyze different time ranges
