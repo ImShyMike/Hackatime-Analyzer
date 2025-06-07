@@ -83,19 +83,19 @@
   }
 </script>
 
-<main class="flex flex-col items-center justify-center pt-6 px-4 text-center">
-  <h1 class="text-ctp-mauve mb-4 pt-6 text-5xl font-bold text-center">Hackatime Analyzer</h1>
+<main class="flex flex-col items-center justify-center px-4 pt-6 text-center">
+  <h1 class="text-ctp-mauve mb-4 pt-6 text-center text-5xl font-bold">Hackatime Analyzer</h1>
   <p class="text-ctp-text mt-2 text-center">Easily analyze hackatime data in your browser!</p>
-  <form onsubmit={loadUserData} class="flex flex-col sm:flex-row items-center w-full max-w-md">
+  <form onsubmit={loadUserData} class="flex w-full max-w-md flex-col items-center sm:flex-row">
     <input
       type="text"
       placeholder="Hackatime/Slack user ID"
       bind:value={userId}
-      class="border-ctp-mauve bg-ctp-base text-ctp-text mt-4 mb-3 sm:mb-0 sm:mr-3 rounded border p-2 w-full"
+      class="border-ctp-mauve bg-ctp-base text-ctp-text mt-4 mb-3 w-full rounded border p-2 sm:mr-3 sm:mb-0"
     />
     <button
       disabled={fetching}
-      class="bg-ctp-mauve text-ctp-base hover:bg-ctp-mauve/80 mt-0 cursor-pointer rounded px-5 py-2 w-full sm:w-auto sm:mt-4"
+      class="bg-ctp-mauve text-ctp-base hover:bg-ctp-mauve/80 mt-0 w-full cursor-pointer rounded px-5 py-2 sm:mt-4 sm:w-auto"
     >
       <div class="flex items-center justify-center">
         {#if fetching}

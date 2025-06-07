@@ -50,7 +50,7 @@
       {
         name: "Time Spent",
         data: [] as number[],
-        color: "#a6e3a1"
+        color: "var(--ctp-green-500)"
       }
     ],
     xaxis: {
@@ -394,7 +394,7 @@
       <h5 class="text-3xl leading-none font-bold text-gray-900 dark:text-white">
         {formatDuration(seriesData.reduce((sum, current) => sum + current, 0)) || ""}
       </h5>
-      <p class="text-base font-normal text-gray-500 dark:text-gray-400 pl-0.5">{filterMode}</p>
+      <p class="pl-0.5 text-base font-normal text-gray-500 dark:text-gray-400">{filterMode}</p>
     </div>
   </div>
   {#if isDataLoaded && seriesData.length > 0}
