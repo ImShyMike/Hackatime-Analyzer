@@ -13,7 +13,7 @@ A simple web application for visualizing and analyzing your coding activity data
 ### Prerequisites
 
 - Node.js (v18 or higher recommended)
-- npm, pnpm, or yarn
+- npm, deno, pnpm or yarn
 
 ### Installation
 
