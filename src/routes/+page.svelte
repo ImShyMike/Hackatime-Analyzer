@@ -95,7 +95,7 @@
     />
     <button
       disabled={fetching}
-      class="bg-ctp-mauve text-ctp-base hover:bg-ctp-mauve/80 mt-4 cursor-pointer rounded px-5 py-2 w-full sm:w-auto"
+      class="bg-ctp-mauve text-ctp-base hover:bg-ctp-mauve/80 mt-0 cursor-pointer rounded px-5 py-2 w-full sm:w-auto sm:mt-4"
     >
       <div class="flex items-center justify-center">
         {#if fetching}
