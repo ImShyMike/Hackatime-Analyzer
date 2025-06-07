@@ -378,7 +378,7 @@
   }
 </script>
 
-<div class="bg-ctp-surface0 mt-6 w-[75%] rounded p-4">
+<div class="bg-ctp-surface0 mt-6 w-[100%] rounded p-4 sm:w-[75%]">
   <div class="flex justify-between">
     <h3 class="text-ctp-lavender pb-2 text-2xl font-bold">
       {stats.username || ""} - ID {stats.user_id || ""}
