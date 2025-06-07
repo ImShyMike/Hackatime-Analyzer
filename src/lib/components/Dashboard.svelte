@@ -6,72 +6,7 @@
   let seriesData = $state<number[]>([]);
   let categories = $state<string[]>([]);
   let isDataLoaded = $state(false);
-  let options = $state<ApexOptions>({
-    chart: {
-      height: "400px",
-      type: "area",
-      fontFamily: "Inter, sans-serif",
-      dropShadow: {
-        enabled: false
-      },
-      toolbar: {
-        show: true
-      }
-    },
-    tooltip: {
-      enabled: true,
-      x: {
-        show: true
-      },
-      y: {
-        formatter: (value: number) => formatDuration(value || 0)
-      },
-      style: {
-        fontSize: "12px",
-        fontFamily: "Inter, sans-serif"
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      width: 6
-    },
-    grid: {
-      show: false,
-      strokeDashArray: 4,
-      padding: {
-        left: 2,
-        right: 2,
-        top: 0
-      }
-    },
-    series: [
-      {
-        name: "Time Spent",
-        data: [] as number[],
-        color: "var(--ctp-green-500)"
-      }
-    ],
-    xaxis: {
-      categories: [] as string[],
-      labels: {
-        show: true,
-        style: {
-          colors: "#74c7ec"
-        }
-      },
-      axisBorder: {
-        show: true
-      },
-      axisTicks: {
-        show: true
-      }
-    },
-    yaxis: {
-      show: false
-    }
-  });
+  let options = $state<ApexOptions>({});
 
   import { Chart, A, Button, Dropdown, DropdownItem } from "flowbite-svelte";
   import { ChevronRightOutline, ChevronDownOutline } from "flowbite-svelte-icons";
@@ -291,7 +226,8 @@
           enabled: false
         },
         toolbar: {
-          show: true
+          show: false,
+          autoSelected: "pan",
         }
       },
       tooltip: {
