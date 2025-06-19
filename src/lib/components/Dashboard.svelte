@@ -98,12 +98,43 @@
     }
 
     spans.forEach((span) => {
-      const hourOfDay = span.start_time.getHours();
-      const dateKey = span.start_time.toISOString().split("T")[0];
-      const hourKey = `${dateKey} ${hourOfDay}`;
+      const startTime = new Date(span.start_time);
+      const endTime = new Date(span.end_time);
+      
+      let currentHour = new Date(startTime.getTime());
+      
+      const endHour = new Date(
+        endTime.getFullYear(),
+        endTime.getMonth(),
+        endTime.getDate(),
+        endTime.getHours()
+      );
+      
+      // process each hour this span crosses
+      while (currentHour <= endHour) {
+        const nextHour = new Date(currentHour);
+        nextHour.setHours(currentHour.getHours() + 1);
+        
+        const segmentStart = currentHour <= startTime ? startTime : currentHour;
+        const segmentEnd = nextHour <= endTime ? nextHour : endTime;
 
-      if (hours[hourKey]) {
-        hours[hourKey].sessions.push(span);
+        const durationMs = segmentEnd.getTime() - segmentStart.getTime();
+        const durationSeconds = Math.floor(durationMs / 1000);
+        
+        if (durationSeconds > 0) {
+          const hourKey = `${currentHour.toISOString().split("T")[0]} ${currentHour.getHours()}`;
+          
+          if (hours[hourKey]) {
+            hours[hourKey].sessions.push({
+              start_time: new Date(segmentStart),
+              end_time: new Date(segmentEnd),
+              duration: durationSeconds
+            });
+          }
+        }
+        
+        // move to next hour
+        currentHour.setHours(currentHour.getHours() + 1);
       }
     });
 
