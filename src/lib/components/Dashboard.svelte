@@ -24,7 +24,7 @@
   ];
 
   const periodParam = $page.url.searchParams.get('period');
-  const formattedDuration = toTitleCase(String(periodParam).replace("-", " "));
+  const formattedDuration = toTitleCase(String(periodParam).replace("_", " "));
   if (filterOptions.includes(formattedDuration)) {
     filterMode = formattedDuration;
   }
