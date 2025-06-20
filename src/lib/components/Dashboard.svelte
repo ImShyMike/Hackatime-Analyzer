@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { page } from '$app/stores';
+
   let { stats, spans } = $props();
 
   let filterMode = $state("Last 7 days");
@@ -20,6 +22,19 @@
     "Last 90 days",
     "All time"
   ];
+
+  const periodParam = $page.url.searchParams.get('period');
+  const formattedDuration = toTitleCase(String(periodParam).replace("-", " "));
+  if (filterOptions.includes(formattedDuration)) {
+    filterMode = formattedDuration;
+  }
+
+  function toTitleCase(str: string): string {
+    return str.replace(
+      /\w\S*/g,
+      text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
+    );
+  }
 
   function formatDuration(seconds: number): string {
     const hours = Math.floor(seconds / 3600);
