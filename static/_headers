@@ -1,0 +1,4 @@
+/*
+  Access-Control-Allow-Origin: https://hackatime.hackclub.com
+  Access-Control-Allow-Methods: GET
+  Access-Control-Allow-Headers: Content-Type
