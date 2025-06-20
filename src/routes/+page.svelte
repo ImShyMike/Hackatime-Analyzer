@@ -2,6 +2,9 @@
   import Dashboard from "$lib/components/Dashboard.svelte";
   import Footer from "$lib/components/Footer.svelte";
   import { Toast } from "flowbite-svelte";
+  import { page } from '$app/stores';
+    
+  const idParam = $page.url.searchParams.get('id');
 
   let userId = $state("");
   let lastUserId = $state<string | null>(null);
@@ -80,6 +83,11 @@
     fetchedStats = await loadStatsData();
     fetchedSpans = await loadSpansData();
     fetching = false;
+  }
+
+  if (idParam) {
+    userId = idParam;
+    loadUserData();
   }
 </script>
 
